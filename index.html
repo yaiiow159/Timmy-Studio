@@ -57,11 +57,15 @@
             <div class="bg-circle circle1"></div>
             <div class="bg-circle circle2"></div>
             <div class="hero-code">
-                <pre><code>function createSolution(requirements) {
-  const tech = chooseBestTechnology(requirements);
-  const architecture = designArchitecture(tech);
+                <pre><code>class ProjectManager {
+  constructor() {
+    this.skills = ['前端', '後端', 'DevOps'];
+    this.experience = '多年實戰經驗';
+  }
   
-  return build(architecture);
+  createSolution() {
+    return `高品質 + 準時交付`;
+  }
 }</code></pre>
             </div>
         </div>
