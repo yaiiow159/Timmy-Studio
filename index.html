@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timmy Studio - 全端工程師接案服務</title>
+    <meta name="description" content="Timmy Studio - 專業全端工程師接案服務，提供客製化系統開發、網站建置、API串接及DevOps服務。">
+    <meta name="keywords" content="全端工程師,接案,系統開發,網站建置,API串接,DevOps">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -11,27 +13,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="scroll-progress"></div>
+    
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">Timmy Studio</div>
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-code"></i></span>
+                <span class="logo-text">Timmy Studio</span>
+            </div>
             <div class="nav-links">
-                <a href="#about">關於我</a>
-                <a href="#skills">技術能力</a>
-                <a href="#services">服務項目</a>
-                <a href="#pricing">報價方案</a>
-                <a href="#contact">聯絡方式</a>
+                <a href="#about"><i class="fas fa-user-circle"></i><span>關於我</span></a>
+                <a href="#skills"><i class="fas fa-laptop-code"></i><span>技術能力</span></a>
+                <a href="#services"><i class="fas fa-cogs"></i><span>服務項目</span></a>
+                <a href="#pricing"><i class="fas fa-tags"></i><span>報價方案</span></a>
+                <a href="#contact"><i class="fas fa-envelope"></i><span>聯絡方式</span></a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
-            <img src="/img/profile.png" alt="Developer Avatar" class="avatar">
-            <h1>全端工程師 Timmy</h1>
-            <p class="subtitle">接受遠端兼職／外包合作</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn primary">立即聯絡</a>
-                <a href="#services" class="btn service-btn">查看服務</a>
+            <div class="hero-image">
+                <img src="/img/profile.png" alt="Developer Avatar" class="avatar">
+                <div class="badge-container">
+                    <div class="badge"><i class="fas fa-check-circle"></i> 3+ 年經驗</div>
+                    <div class="badge"><i class="fas fa-rocket"></i> 專案交付速度快</div>
+                </div>
+            </div>
+            <div class="hero-text">
+                <h1>全端工程師 <span class="highlight">Timmy</span></h1>
+                <p class="subtitle">專注企業級系統架構與整合的全端開發工程師</p>
+                <p class="tagline">接受遠端兼職／外包合作</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn primary">立即聯絡</a>
+                    <a href="#services" class="btn service-btn">查看服務</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg">
+            <div class="bg-circle circle1"></div>
+            <div class="bg-circle circle2"></div>
+            <div class="hero-code">
+                <pre><code>function createSolution(requirements) {
+  const tech = chooseBestTechnology(requirements);
+  const architecture = designArchitecture(tech);
+  
+  return build(architecture);
+}</code></pre>
             </div>
         </div>
     </header>
@@ -179,9 +210,6 @@
                         <li>響應式 RWD 網站設計</li>
                         <li>基本形象官網／介紹頁</li>
                         <li>Vue.js + API 前後端整合</li>
-                        <li>網站維護、bug修復</li>
-                        <li>第三方API串接整合</li>
-                        <li>第三方金流平台串接</li>
                     </ul>
                 </div>
                 <div class="service-card">
@@ -192,6 +220,8 @@
                         <li>管理後台開發</li>
                         <li>多角色權限控制</li>
                         <li>排程任務與自動化</li>
+                        <li>網站維護、bug修復</li>
+                        <li>第三方API串接整合</li>
                     </ul>
                 </div>
                 <div class="service-card">
@@ -324,10 +354,11 @@
         <div class="container">
             <p>&copy; 2024 Timmy Studio. All rights reserved.</p>
         </div>
-        <div>
-
-        </div>
     </footer>
+    
+    <a href="#" class="floating-action-btn back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>

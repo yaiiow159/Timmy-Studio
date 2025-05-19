@@ -4,6 +4,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillCategories = document.querySelectorAll('.skill-category');
     const serviceCards = document.querySelectorAll('.service-card');
     const pricingCards = document.querySelectorAll('.pricing-card');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const scrollProgress = document.querySelector('.scroll-progress');
+    const backToTop = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+        const windowScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (windowScroll / height) * 100;
+        
+        if (scrollProgress) {
+            scrollProgress.style.width = `${scrolled}%`;
+        }
+        
+        if (backToTop) {
+            if (windowScroll > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+    });
+    
+    if (backToTop) {
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            
+            const isActive = mobileMenuToggle.classList.contains('active');
+            mobileMenuToggle.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+    }
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 992) {
+                navLinks.classList.remove('active');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    });
     
     let lastScroll = 0;
     
@@ -23,6 +77,22 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.add('scroll-up');
         }
         lastScroll = currentScroll;
+        
+        const scrollPosition = window.scrollY + 200;
+        
+        document.querySelectorAll('section[id]').forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                document.querySelector(`.nav-links a[href="#${sectionId}"]`)?.classList.add('active');
+            }
+        });
     });
     
     const observerOptions = {
@@ -79,86 +149,56 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
     });
     
-    const heroContent = document.querySelector('.hero-content');
-    const heroTitle = heroContent.querySelector('h1');
-    const heroSubtitle = heroContent.querySelector('.subtitle');
-    const heroButtons = heroContent.querySelector('.cta-buttons');
-    
     const animateHero = () => {
-        heroTitle.style.opacity = '0';
-        heroTitle.style.transform = 'translateY(20px)';
-        heroSubtitle.style.opacity = '0';
-        heroSubtitle.style.transform = 'translateY(20px)';
-        heroButtons.style.opacity = '0';
-        heroButtons.style.transform = 'translateY(20px)';
+        const heroTitleElement = document.querySelector('.hero-text h1');
+        const heroSubtitleElement = document.querySelector('.hero-text .subtitle');
+        const heroTaglineElement = document.querySelector('.hero-text .tagline');
+        const heroCTAElement = document.querySelector('.hero-text .cta-buttons');
+        const heroImageElement = document.querySelector('.hero-image');
+        const heroCodeElement = document.querySelector('.hero-code');
         
-        setTimeout(() => {
-            heroTitle.style.transition = 'all 0.8s ease';
-            heroTitle.style.opacity = '1';
-            heroTitle.style.transform = 'translateY(0)';
-            
+        if (heroTitleElement) heroTitleElement.classList.add('animate-fade-in');
+        if (heroSubtitleElement) {
             setTimeout(() => {
-                heroSubtitle.style.transition = 'all 0.8s ease';
-                heroSubtitle.style.opacity = '1';
-                heroSubtitle.style.transform = 'translateY(0)';
-                
-                setTimeout(() => {
-                    heroButtons.style.transition = 'all 0.8s ease';
-                    heroButtons.style.opacity = '1';
-                    heroButtons.style.transform = 'translateY(0)';
-                }, 200);
+                heroSubtitleElement.classList.add('animate-fade-in');
             }, 200);
-        }, 200);
+        }
+        if (heroTaglineElement) {
+            setTimeout(() => {
+                heroTaglineElement.classList.add('animate-fade-in');
+            }, 400);
+        }
+        if (heroCTAElement) {
+            setTimeout(() => {
+                heroCTAElement.classList.add('animate-fade-in');
+            }, 600);
+        }
+        if (heroImageElement) {
+            setTimeout(() => {
+                heroImageElement.classList.add('animate-fade-in-right');
+            }, 300);
+        }
+        if (heroCodeElement) {
+            setTimeout(() => {
+                heroCodeElement.classList.add('animate-fade-in-up');
+            }, 800);
+        }
     };
     
-    animateHero();
+    window.addEventListener('load', animateHero);
     
-    const contactItems = document.querySelectorAll('.contact-item');
-    contactItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            item.style.transition = 'all 0.5s ease';
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-        }, index * 200);
-    });
-    
-    document.querySelectorAll('.collapsible').forEach(item => {
-        item.addEventListener('click', function (e) {
-            if (e.target.closest('.collapsible-desc')) return;
-            this.classList.toggle('active');
-        });
-    });
-    
-    document.querySelectorAll('.main-skill-title').forEach(item => {
-        item.addEventListener('click', function () {
-            const block = this.closest('.main-skill-block');
-            block.classList.toggle('active');
-        });
-    });
-    
-    // timeline 進場動畫
-    const timelineItems = document.querySelectorAll('.timeline-animate');
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-    timelineItems.forEach(item => timelineObserver.observe(item));
-
-    // 處理技能區塊的下拉效果
     const skillBlocks = document.querySelectorAll('.main-skill-block');
     
     skillBlocks.forEach(block => {
@@ -180,37 +220,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 處理導航欄滾動效果
-    let lastScrollTop = 0;
-    
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // 向下滾動
-            navbar.classList.add('scroll-down');
-            navbar.classList.remove('scroll-up');
-        } else {
-            // 向上滾動
-            navbar.classList.remove('scroll-down');
-            navbar.classList.add('scroll-up');
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-
-    // 處理導航連結點擊
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
+    const timelineItems = document.querySelectorAll('.timeline-animate');
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
+    }, { threshold: 0.1 });
+    timelineItems.forEach(item => timelineObserver.observe(item));
+    
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
     });
+    
+    const createTypewriter = (element, text, speed = 100) => {
+        if (!element) return;
+        
+        let i = 0;
+        element.textContent = '';
+        element.style.opacity = '1';
+        
+        const typeInterval = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typeInterval);
+            }
+        }, speed);
+    };
+    
+    const addLineNumbers = () => {
+        document.querySelectorAll('pre code').forEach(block => {
+            if (!block.parentNode.classList.contains('line-numbers-added')) {
+                const lines = block.textContent.split('\n');
+                const lineNumbersWrapper = document.createElement('div');
+                lineNumbersWrapper.className = 'line-numbers';
+                
+                for (let i = 0; i < lines.length; i++) {
+                    if (i === lines.length - 1 && lines[i] === '') continue;
+                    const lineNumber = document.createElement('span');
+                    lineNumber.textContent = i + 1;
+                    lineNumbersWrapper.appendChild(lineNumber);
+                }
+                
+                block.parentNode.classList.add('line-numbers-added');
+                block.parentNode.insertBefore(lineNumbersWrapper, block);
+            }
+        });
+    };
+    
+    window.addEventListener('load', addLineNumbers);
 }); 

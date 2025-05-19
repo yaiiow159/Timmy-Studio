@@ -14,6 +14,8 @@
     --gradient-1: linear-gradient(135deg, #232946 0%, #181e29 100%);
     --gradient-2: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
     --gradient-3: linear-gradient(135deg, #a5b4fc 0%, #2563eb 100%);
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --transition: all 0.3s ease-in-out;
 }
 
 * {
@@ -61,7 +63,7 @@ body::before {
     background: rgba(24, 30, 41, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: all 0.3s ease;
@@ -74,7 +76,7 @@ body::before {
 .navbar.scroll-up {
     transform: translateY(0);
     background: rgba(24, 30, 41, 0.98);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
 }
 
 .nav-content {
@@ -87,12 +89,32 @@ body::before {
 }
 
 .logo {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     position: relative;
     font-family: 'Montserrat', 'Poppins', sans-serif;
     letter-spacing: 0.08em;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(56, 189, 248, 0.15);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    position: relative;
 }
 
 .logo::after {
@@ -110,20 +132,44 @@ body::before {
     width: 100%;
 }
 
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
 .nav-links a {
     color: var(--text-light);
     text-decoration: none;
-    margin-left: 2rem;
     position: relative;
     transition: color 0.2s;
     font-family: 'Montserrat', 'Poppins', sans-serif;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a i {
     font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.nav-links a:hover i {
+    transform: translateY(-2px);
 }
 
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -2px;
     left: 0;
     width: 0;
     height: 2px;
@@ -135,17 +181,28 @@ body::before {
     width: 100%;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--primary-color);
+}
+
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     background: var(--gradient-1);
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: left;
-    color: var(--white);
     padding-top: 80px;
+    padding-bottom: 2rem;
 }
 
 .hero::before {
@@ -164,48 +221,185 @@ body::before {
     position: relative;
     z-index: 1;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 600px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    max-width: 1100px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    animation: fadeInUp 1s ease;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    font-family: 'Montserrat', 'Poppins', sans-serif;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.01em;
-}
-
-.hero-content .subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2.5rem;
-    animation: fadeInUp 1s ease 0.2s;
-    opacity: 0;
-    animation-fill-mode: forwards;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    font-family: 'Poppins', 'Montserrat', sans-serif;
+.hero-image {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     border: 4px solid var(--primary-color);
-    margin-bottom: 2rem;
-    box-shadow: 0 0 32px 0 #38bdf844, 0 0 0 8px #181e29;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 32px 0 rgba(56, 189, 248, 0.3), 0 0 0 8px rgba(24, 30, 41, 0.8);
     background: var(--card-bg);
     object-fit: cover;
     animation: avatar-glow 2.5s infinite alternate;
 }
 
+.badge-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.badge {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(56, 189, 248, 0.2);
+}
+
+.badge i {
+    font-size: 1rem;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.75rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(--primary-color);
+    opacity: 0.3;
+    z-index: -1;
+    border-radius: 4px;
+}
+
+.hero-text .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', 'Montserrat', sans-serif;
+    color: var(--text-light);
+}
+
+.hero-text .tagline {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+.circle1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(56, 189, 248, 0.15);
+    top: 20%;
+    right: 15%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.circle2 {
+    width: 250px;
+    height: 250px;
+    background: rgba(37, 99, 235, 0.1);
+    bottom: 15%;
+    left: 10%;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+.hero-code {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    background: rgba(35, 41, 70, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    transform: rotate(2deg);
+}
+
+.hero-code pre {
+    margin: 0;
+}
+
+.hero-code code {
+    color: var(--text-color);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
 @keyframes avatar-glow {
-    0% { box-shadow: 0 0 32px 0 #38bdf844, 0 0 0 8px #181e29; }
-    100% { box-shadow: 0 0 64px 8px #38bdf899, 0 0 0 8px #181e29; }
+    0% { box-shadow: 0 0 32px 0 rgba(56, 189, 248, 0.3), 0 0 0 8px rgba(24, 30, 41, 0.8); }
+    100% { box-shadow: 0 0 64px 8px rgba(56, 189, 248, 0.5), 0 0 0 8px rgba(24, 30, 41, 0.8); }
 }
 
 .section {
@@ -1179,4 +1373,294 @@ html {
     .contact-form-embed iframe {
         min-height: 520px;
     }
-} 
+}
+
+/* 行動裝置選單樣式 */
+@media (max-width: 992px) {
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(56, 189, 248, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: rgba(56, 189, 248, 0.2);
+    }
+    
+    .mobile-menu-toggle.active {
+        background: rgba(56, 189, 248, 0.25);
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(24, 30, 41, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-150%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        height: auto;
+        z-index: 100;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .nav-links a {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        justify-content: flex-start;
+    }
+}
+
+/* 新增動畫類 */
+.animate-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-in-right {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInRight 0.8s ease forwards;
+}
+
+.animate-fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 導航欄活躍狀態 */
+.nav-links a.active {
+    color: var(--primary-color);
+    background: rgba(56, 189, 248, 0.15);
+    font-weight: 500;
+}
+
+/* 代碼塊樣式 */
+pre {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 1rem;
+    font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+    line-height: 1.5;
+}
+
+.line-numbers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 100%;
+    padding: 1rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-light);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+    font-size: 0.85rem;
+}
+
+pre code {
+    padding-left: 4rem;
+}
+
+/* 頁面載入動畫 */
+body.loaded .hero-content {
+    opacity: 1;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        padding: 4rem 1.5rem 6rem;
+        gap: 2rem;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-text .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-code {
+        display: none;
+    }
+    
+    .bg-circle {
+        opacity: 0.6;
+    }
+    
+    .hero-image {
+        margin-top: 1rem;
+    }
+    
+    .avatar {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* 更多專業化UI元件 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.75rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--card-bg) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 標籤樣式 */
+.tag {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    background: var(--gradient-2);
+    color: var(--white);
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 底部的浮動動作按鈕 */
+.floating-action-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gradient-2);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 99;
+    opacity: 0;
+    transform: scale(0);
+    animation: floatIn 0.5s ease 1s forwards;
+}
+
+.floating-action-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.floating-action-btn.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 頁面載入進度指示器 */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-2);
+    z-index: 1001;
+    transition: width 0.2s ease;
+}
+
+/* 更新關於區塊樣式 */
+.about-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* 更多新樣式 ... */ 
